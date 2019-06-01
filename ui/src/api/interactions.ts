@@ -15,7 +15,7 @@ export const A_REQUEST_FOR_AIRPORTS: InteractionObject = {
   willRespondWith: {
     status: httpStatusCodes.OK,
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json; charset=utf-8'
     },
     body: {
       airports: Matchers.eachLike({
