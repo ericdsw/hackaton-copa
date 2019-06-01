@@ -18,5 +18,6 @@ COPY scripts ./scripts
 COPY seed-data.sh .
 
 RUN yarn convert
+RUN yarn adjustTypes
 
 CMD ["mongod"]

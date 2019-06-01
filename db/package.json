@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "convert": "node ./scripts/convertToJson.js"
+    "convert": "node ./scripts/convertToJson.js",
+    "adjustTypes": "node ./scripts/transformValues.js"
   },
   "author": "",
   "license": "ISC",
