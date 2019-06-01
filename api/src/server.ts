@@ -8,9 +8,11 @@ const { PORT } = config;
 
 const server = http.createServer(app);
 
-server.listen({ port }, () => {
+server.listen({ port: PORT }, () => {
+
   logger.info('');
   logger.info(`     THOR     `);
   logger.info('');
   logger.info(`API started on port: ${PORT}`);
+
 });
