@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@pact-foundation/pact": "^8.2.4",
     "@storybook/addon-actions": "^5.0.11",
     "@storybook/addon-info": "^5.0.11",
     "@storybook/addon-links": "^5.0.11",
@@ -53,13 +54,20 @@
     "@storybook/react": "^5.0.11",
     "@types/enzyme": "^3.9.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/node-fetch": "^2.3.4",
     "@types/storybook__addon-storyshots": "^4.0.0",
     "@types/storybook__react": "^4.0.1",
     "awesome-typescript-loader": "^5.2.1",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
+    "node-fetch": "^2.6.0",
     "react-docgen-typescript-loader": "^3.1.0",
     "react-test-renderer": "^16.8.6",
     "require-context.macro": "^1.0.4"
+  },
+  "jest": {
+    "watchPathIgnorePatterns": [
+      "pacts"
+    ]
   }
 }

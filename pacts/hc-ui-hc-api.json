@@ -1,0 +1,48 @@
+{
+  "consumer": {
+    "name": "hc-ui"
+  },
+  "provider": {
+    "name": "hc-api"
+  },
+  "interactions": [
+    {
+      "description": "a request for airports",
+      "providerState": "there are a list of airports",
+      "request": {
+        "method": "GET",
+        "path": "/airports",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "airports": [
+            {
+              "code": "PTY",
+              "name": "Tocumen International Airport"
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body.airports": {
+            "min": 1
+          },
+          "$.body.airports[*].*": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
