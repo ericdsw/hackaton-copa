@@ -5,17 +5,20 @@ import init from './init';
 import logger from './logger';
 import httpStatusCode from './constants/http-status-code';
 import config from './config';
+import airportsRouter from './routes/airports';
 
 try {
   init();
 } catch (err) {
-  logger.error(err);
+  logger.error(err); // FIXME: error not being logged
   process.exit(1);
 }
 
 const app = express();
 
 app.use(bodyParser.json());
+
+app.use('/airports', airportsRouter);
 
 app.use((req, res, next) => {
   res.status(httpStatusCode.NOT_FOUND).end();
