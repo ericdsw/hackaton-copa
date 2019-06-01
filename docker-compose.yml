@@ -1,8 +1,9 @@
-version "3.7"
+version: "3.7"
 
 services:
   db:
+    container_name: hc-db
     build: ./db
-    tag: hc-db
+    image: hc-db
     ports:
       - "27017:27017"

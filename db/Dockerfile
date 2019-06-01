@@ -19,6 +19,4 @@ COPY seed-data.sh .
 
 RUN yarn convert
 
-EXPOSE 27017
-
-# ENTRYPOINT ["./seed-data.sh"]
+CMD ["mongod"]
