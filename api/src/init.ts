@@ -8,7 +8,7 @@ export default () => {
   }
 
   const unsetEnvVariables = [
-    // FIXME: put here env variables names that are required for the app to run, or it should crash
+    'IATA_CODES_API_KEY',
   ].reduce((unsetEnvVariables: Array<string>, envVariable: string) => {
     !process.env[envVariable] && unsetEnvVariables.push(envVariable)
     return unsetEnvVariables;

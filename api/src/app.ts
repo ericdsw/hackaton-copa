@@ -30,7 +30,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     .status(httpStatusCode.INTERNAL_SERVER_ERROR)
     .json({
       message,
-      stack: config.env !== 'production' && stack || undefined,
+      stack: config.ENV !== 'production' && stack || undefined,
     })
 });
 
