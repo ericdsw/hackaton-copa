@@ -1,7 +1,7 @@
 module.exports = {
 	globals: {
 		'ts-jest': {
-			tsConfigFile: 'tsconfig.json'
+			tsConfig: 'tsconfig.json'
 		}
 	},
 	moduleFileExtensions: [
@@ -14,5 +14,8 @@ module.exports = {
 	testMatch: [
 		'**/src/**/*.test.(ts|js)'
 	],
-	testEnvironment: 'node'
+	testEnvironment: 'node',
+  setupFiles: [
+    '<rootDir>/src/setupTests.ts',
+  ],
 };
