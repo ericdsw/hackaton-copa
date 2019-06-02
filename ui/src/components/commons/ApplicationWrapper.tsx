@@ -26,6 +26,8 @@ const styles = (theme: Theme) => createStyles({
     }
   },
   content: {
+    flexGrow: 1,
+    padding: 16,
     [theme.breakpoints.up('sm')]: {
       marginLeft: drawerWidth
     }
@@ -35,6 +37,7 @@ const styles = (theme: Theme) => createStyles({
 interface ApplicationBarProps {
   classes: any;
   theme: any;
+  children?: any;
 }
 
 const ApplicationWrapper: React.FC<ApplicationBarProps> = props => {
@@ -51,22 +54,13 @@ const ApplicationWrapper: React.FC<ApplicationBarProps> = props => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        <ListItem
-          button>
-          <ListItemIcon>
-            <Icon>star</Icon>
-          </ListItemIcon>
-          <ListItemText primary='Foo' />
-        </ListItem>
+        
       </List>
-      <main className={classes.content}>
-        {children}
-      </main>
     </React.Fragment>
   );
 
   return (
-    <div>
+    <React.Fragment>
       <AppBar
         position='fixed'
         color='primary'
@@ -105,7 +99,11 @@ const ApplicationWrapper: React.FC<ApplicationBarProps> = props => {
           </Drawer>
         </Hidden>
       </nav>
-    </div>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        {children}
+      </main>
+    </React.Fragment>
   );
 }
 
