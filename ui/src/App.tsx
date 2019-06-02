@@ -5,7 +5,7 @@ import { MuiThemeProvider, createMuiTheme, Theme } from '@material-ui/core/style
 import { CssBaseline, withStyles, createStyles } from '@material-ui/core';
 import { purple, green } from '@material-ui/core/colors';
 
-import WontShow from './components/pages/WontShow/WontShow';
+import WontShow from './components/pages/WontShow';
 
 const applicationTheme = createMuiTheme({
   palette: {
@@ -25,34 +25,15 @@ interface AppProps {
   classes: any;
 }
 
-const App: React.FC<AppProps> = props => {
-  
-  const { classes } = props;
-  const airports = [
-    {
-      code: 'foo',
-      name: 'FooAirport'
-    },
-    {
-      code: 'bar',
-      name: 'BarAirport'
-    }
-  ];
-
-  return (
-    <div className={classes.root}>
-      <MuiThemeProvider theme={applicationTheme}>
-        <CssBaseline />
-        <ApplicationWrapper>
-          <WontShow
-            airports={airports}
-            isLoading={true}
-            handleSearchWontShow={data => console.log(data)}/>
-        </ApplicationWrapper>
-      </MuiThemeProvider>
-    </div>
-  );
-
-}
+const App = ({ classes }: AppProps) => (
+  <div className={classes.root}>
+    <MuiThemeProvider theme={applicationTheme}>
+      <CssBaseline />
+      <ApplicationWrapper>
+        <WontShow />
+      </ApplicationWrapper>
+    </MuiThemeProvider>
+  </div>
+);
 
 export default withStyles(styles)(App);
