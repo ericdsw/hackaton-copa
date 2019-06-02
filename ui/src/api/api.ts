@@ -16,7 +16,7 @@ interface AirportResponse {
   airports: Array<Airport>;
 }
 
-interface Airport {
+export interface Airport {
   code: string;
   name: string;
 }
@@ -25,7 +25,7 @@ export const getAirports = () =>
   callApi<AirportResponse>(urls.PATHS.AIRPORTS, { ...defaultOpts })
     .then(({ airports }) => airports);
 
-interface NoShow {
+export interface NoShow {
   wontShow: string;
   confidence: string;
   records: string;
