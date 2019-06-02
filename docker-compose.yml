@@ -1,6 +1,20 @@
 version: "3.7"
 
 services:
+  proxy:
+    image: nginx
+    container_name: hc-proxy
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ui/build:/web/html
+      - ./proxy/nginx.conf:/etc/nginx/conf.d/nginx.conf
+  api:
+    container_name: hc-api
+    build: ./api
+    environment:
+      IATA_CODES_API_KEY: 'b1b675f2-603d-480c-954b-69cf2f32084b'
+      MONGO_URL: 'mongodb://db:27017/hc'
   db:
     container_name: hc-db
     build: ./db

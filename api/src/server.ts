@@ -8,6 +8,7 @@ const { PORT } = config;
 
 const server = http.createServer(app);
 
+server.on('error', err => logger.error(err));
 server.listen({ port: PORT }, () => {
   logger.info('');
   logger.info(`     THOR     `);

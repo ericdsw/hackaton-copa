@@ -7,7 +7,7 @@ export const A_REQUEST_FOR_AIRPORTS: InteractionObject = {
   uponReceiving: 'a request for airports',
   withRequest: {
     method: 'GET',
-    path: '/airports',
+    path: '/api/airports',
     headers: {
       Accept: 'application/json',
     },
@@ -31,7 +31,7 @@ export const A_NO_SHOW_DATA_REQUEST: InteractionObject = {
   uponReceiving: 'a no show request',
   withRequest: {
     method: 'GET',
-    path: '/no-show',
+    path: '/api/no-show',
     headers: {
       Accept: 'application/json',
     },

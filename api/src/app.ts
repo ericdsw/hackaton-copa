@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import init from './init';
 import logger from './logger';
@@ -18,9 +19,10 @@ try {
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
-app.use('/airports', airportsRouter);
-app.use('/no-show', noShowRouter);
+app.use('/api/airports', airportsRouter);
+app.use('/api/no-show', noShowRouter);
 
 app.use((req, res, next) => {
   res.status(httpStatusCode.NOT_FOUND).end();
