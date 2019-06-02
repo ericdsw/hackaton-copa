@@ -38,8 +38,7 @@ export const A_NO_SHOW_DATA_REQUEST: InteractionObject = {
     query: {
       origin: 'PTY',
       destination: 'DAV',
-      date: '2019-06-01',
-      time: '13:30 pm',
+      date: '2019-06-01 13:30:00 PM'
     },
   },
   willRespondWith: {
