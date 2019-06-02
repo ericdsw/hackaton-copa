@@ -30,37 +30,24 @@ const styles = (theme: Theme) => createStyles({
   }
 });
 
-interface WontShowProps {
-  classes: any;
-  airports: any;
+export interface WontShowProps {
+  airports: Airport[];
   isLoading: boolean;
   handleSearchWontShow(data: any): void;
-  result?: NoShow
+  noShow?: NoShow
 }
 
-const WontShow : React.FC<WontShowProps> = props => {
+interface FullProps extends WontShowProps {
+  classes: any,
+}
 
-  const { 
-    classes, airports, handleSearchWontShow, isLoading, result
-  } = props;
-
-  const selectElements = airports.map((airport: Airport) => {
-    return (
-      <MenuItem key={airport.code} value={airport.code}>
-        <Typography>
-          {airport.name} ({airport.code})
-        </Typography>
-      </MenuItem>
-    );
-  });
-  selectElements.splice(0,0, 
-    <MenuItem key='' value=''>
-      <Typography>
-        ---
-      </Typography>
-    </MenuItem>
-  )
-
+const WontShow = ({
+  classes,
+  airports,
+  handleSearchWontShow,
+  isLoading,
+  noShow
+} : FullProps) => {
   const [selectedDate, setSelectedDate] = useState<Date|null>(new Date());
   const [curOrigin, setOrigin] = useState<string>('');
   const [curDest, setDest] = useState<string>('');
@@ -77,6 +64,22 @@ const WontShow : React.FC<WontShowProps> = props => {
       date: selectedDate
     });
   }
+
+  const selectElements = [(
+    <MenuItem key='' value=''>
+      <Typography>
+        ---
+      </Typography>
+    </MenuItem>
+    )]
+    .concat(airports.map((airport: Airport) => (
+      <MenuItem key={airport.code} value={airport.code}>
+        <Typography>
+          <b>{airport.code}</b> - {airport.name}
+        </Typography>
+      </MenuItem>
+    )));
+
 
   return (
     <Grid container spacing={2} alignItems='stretch'>
@@ -103,6 +106,7 @@ const WontShow : React.FC<WontShowProps> = props => {
                   className={classes.textField}
                   margin='normal'
                   value={curOrigin}
+                  disabled={isLoading}
                   onChange={e => { setOrigin(e.target.value)} }> 
                   {selectElements}
                 </TextField>
@@ -119,6 +123,7 @@ const WontShow : React.FC<WontShowProps> = props => {
                   className={classes.textField}
                   margin='normal'
                   value={curDest}
+                  disabled={isLoading}
                   onChange={e => setDest(e.target.value)}>
                   {selectElements}
                 </TextField>
@@ -140,6 +145,7 @@ const WontShow : React.FC<WontShowProps> = props => {
                     className={classes.textField}
                     onChange={handleDateChange}
                     fullWidth
+                    disabled={isLoading}
                   />
                   <TimePicker
                     margin='normal'
@@ -148,6 +154,7 @@ const WontShow : React.FC<WontShowProps> = props => {
                     className={classes.textField}
                     onChange={handleDateChange}
                     fullWidth
+                    disabled={isLoading}
                   />
                 </MuiPickersUtilsProvider>
               </Grid>
@@ -163,6 +170,7 @@ const WontShow : React.FC<WontShowProps> = props => {
                     variant='contained'
                     type='submit'
                     color='primary'
+                    disabled={isLoading}
                   >
                   Submit
                   </Button>
@@ -185,11 +193,11 @@ const WontShow : React.FC<WontShowProps> = props => {
             Estimated Result
           </Typography>
 
-          {result &&
-            <div>{result}</div>
+          {noShow &&
+            <div>{noShow}</div>
           }
 
-          {!result &&
+          {!noShow &&
             <Typography align='center' variant='subtitle1'>
               Nothing to show
             </Typography>
@@ -203,4 +211,3 @@ const WontShow : React.FC<WontShowProps> = props => {
 }
 
 export default withStyles(styles)(WontShow);
-

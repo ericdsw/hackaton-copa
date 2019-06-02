@@ -2,8 +2,15 @@ import React, { useState } from 'react';
 import { withStyles, createStyles } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
 import {
-  AppBar, Toolbar, Typography, IconButton, Icon, Divider, Hidden,
-  List, ListItem, ListItemText, ListItemIcon, Drawer
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Icon,
+  Divider,
+  Hidden,
+  Drawer,
+  List,
 } from '@material-ui/core';
 
 const drawerWidth = 240;
