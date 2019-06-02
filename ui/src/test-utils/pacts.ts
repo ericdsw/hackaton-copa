@@ -11,5 +11,6 @@ export const createProvider = (port: number) => new Pact({
   log: path.resolve(pactDirectory, 'logs', 'pact.log'),
   dir: pactDirectory,
   logLevel: 'error',
+  pactfileWriteMode: 'merge',
   spec: 2,
 });

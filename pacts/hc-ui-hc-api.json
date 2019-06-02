@@ -38,6 +38,42 @@
           }
         }
       }
+    },
+    {
+      "description": "a no show request",
+      "providerState": "there is some flight data",
+      "request": {
+        "method": "GET",
+        "path": "/no-show",
+        "query": "origin=PTY&destination=DAV&date=2019-06-01&time=13%3A30+pm",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "noShow": {
+            "wontShow": 5.8,
+            "confidence": 0.8,
+            "records": 1000
+          }
+        },
+        "matchingRules": {
+          "$.body.noShow.wontShow": {
+            "match": "type"
+          },
+          "$.body.noShow.confidence": {
+            "match": "type"
+          },
+          "$.body.noShow.records": {
+            "match": "type"
+          }
+        }
+      }
     }
   ],
   "metadata": {

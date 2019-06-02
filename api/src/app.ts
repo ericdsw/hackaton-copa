@@ -6,6 +6,7 @@ import logger from './logger';
 import httpStatusCode from './constants/http-status-code';
 import config from './config';
 import airportsRouter from './routes/airports';
+import noShowRouter from './routes/noShow';
 
 try {
   init();
@@ -19,6 +20,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use('/airports', airportsRouter);
+app.use('/no-show', noShowRouter);
 
 app.use((req, res, next) => {
   res.status(httpStatusCode.NOT_FOUND).end();
