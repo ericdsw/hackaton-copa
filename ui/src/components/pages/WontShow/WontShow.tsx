@@ -48,20 +48,27 @@ const WontShow = ({
   isLoading,
   noShow
 } : FullProps) => {
+
   const [selectedDate, setSelectedDate] = useState<Date|null>(new Date());
   const [curOrigin, setOrigin] = useState<string>('');
   const [curDest, setDest] = useState<string>('');
+
+  // const isDisabled = isLoading || (selectedDate && curOrigin && curDest);
 
   function handleDateChange(date: Date | null) {
     setSelectedDate(date);
   }
 
   function submitForm(event: FormEvent) {
+
     event.preventDefault();
+
+    const dateString = (selectedDate !== null ) ? selectedDate.toString() : new Date().toString(); 
+
     handleSearchWontShow({
       origin: curOrigin,
       destination: curDest,
-      date: selectedDate
+      date: dateString
     });
   }
 
@@ -195,9 +202,8 @@ const WontShow = ({
 
           {noShow &&
             <div>
-              <p><b>Won't show:</b> {noShow.wontShow}</p>
-              <p><b>Confidence:</b> {noShow.confidence}</p>
-              <p><b>Records:</b> {noShow.records}</p>
+              <p><Typography variant='body1'><b>Won't show:</b> {noShow.wontShow}</Typography></p>
+              <p><Typography variant='body1'><b>Records:</b> {noShow.records}</Typography></p>
             </div>
           }
 

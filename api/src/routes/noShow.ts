@@ -50,13 +50,13 @@ router.get('/', async (req, res, next) => {
         finalValue: (firstReturnData.median + firstReturnData.mean) / 2
       });
 
-      applyAggregate(secondFilterObject)
-        .then(data => data as FilterResponse)
-        .then(secondReturnData => {
+      // applyAggregate(secondFilterObject)
+      //   .then(data => data as FilterResponse)
+      //   .then(secondReturnData => {
 
-          secondData = Object.assign(secondReturnData, {
-            finalValue: (secondReturnData.median + secondReturnData.mean) / 2
-          });
+          // secondData = Object.assign(secondReturnData, {
+          //   finalValue: (secondReturnData.median + secondReturnData.mean) / 2
+          // });
 
           applyAggregate(thirdFilterObject)
             .then(data => data as FilterResponse)
@@ -75,18 +75,19 @@ router.get('/', async (req, res, next) => {
                   });
 
                   const noShow = Math.ceil((
-                    firstData.finalValue + secondData.finalValue + thirdData.finalValue + fourthData.finalValue
-                  ) / 4);
+                    firstData.finalValue + thirdData.finalValue + fourthData.finalValue
+                  ) / 3);
 
-                  const records = firstData.length + secondData.length + thirdData.length + fourthData.length;
+                  const records = firstData.length + thirdData.length + fourthData.length;
 
                   res.json({
-                    wontShow: noShow,
-                    confidence: 0,
-                    records: records,
+                    noShow: {
+                      wontShow: noShow,
+                      confidence: 0,
+                      records: records,
+                    },
                     auxData: {
                       originDestination: firstData,
-                      originMonthDate: secondData,
                       originHour: thirdData,
                       originWeekDay: fourthData
                     },
@@ -98,7 +99,7 @@ router.get('/', async (req, res, next) => {
 
             })
 
-        })
+        // })
 
     })
     .catch(err => console.log(err))
@@ -144,7 +145,7 @@ function applyAggregate(filterObject: FilterObject) {
       });
 
       if (flights.length % 2 == 0) {
-        median = sortedArray[flights.length / 2].TOTALNOSHOW + sortedArray[flights.length / 2 + 1].TOTALNOSHOW;
+        median = sortedArray[flights.length / 2].TOTALNOSHOW + sortedArray[flights.length / 2 - 1].TOTALNOSHOW;
       } else {
         median = sortedArray[Math.ceil(flights.length / 2.0)].TOTALNOSHOW;
       }
@@ -157,8 +158,12 @@ function applyAggregate(filterObject: FilterObject) {
     })
     .catch(err => {
       console.log(err);
+      return {
+        mean: 0,
+        median: 0,
+        length: 0
+      }
     });
-
 }
 
 export default router;
