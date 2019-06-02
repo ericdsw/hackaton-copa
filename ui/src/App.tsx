@@ -38,7 +38,7 @@ const App: React.FC<AppProps> = props => {
       <MuiThemeProvider theme={applicationTheme}>
         <CssBaseline />
         <ApplicationWrapper>
-          Hello World
+          Hello W
         </ApplicationWrapper>
       </MuiThemeProvider>
     </div>
