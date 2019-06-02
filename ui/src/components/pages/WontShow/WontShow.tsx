@@ -87,6 +87,7 @@ const WontShow = ({
       </MenuItem>
     )));
 
+  const disableButton = !curOrigin || !curDest;
 
   return (
     <Grid container spacing={2} alignItems='stretch'>
@@ -177,7 +178,7 @@ const WontShow = ({
                     variant='contained'
                     type='submit'
                     color='primary'
-                    disabled={isLoading}
+                    disabled={isLoading || disableButton}
                   >
                   Submit
                   </Button>
