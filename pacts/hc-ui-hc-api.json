@@ -11,7 +11,7 @@
       "providerState": "there are a list of airports",
       "request": {
         "method": "GET",
-        "path": "/airports",
+        "path": "/api/airports",
         "headers": {
           "Accept": "application/json"
         }
@@ -44,7 +44,7 @@
       "providerState": "there is some flight data",
       "request": {
         "method": "GET",
-        "path": "/no-show",
+        "path": "/api/no-show",
         "query": "origin=PTY&destination=DAV&date=2019-06-01&time=13%3A30+pm",
         "headers": {
           "Accept": "application/json"

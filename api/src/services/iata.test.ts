@@ -3,6 +3,13 @@ import * as iata from './iata';
 import urls from '../constants/urls';
 import httpStatusCode from '../constants/http-status-code';
 
+jest.mock('../../resources/airports.json', () => ({
+  airports: [{
+    code: 'foo',
+    name: 'bar',
+  }]
+}));
+
 describe('iata', () => {
   describe('getAirports()', () => {
     const sampleAirport = {
@@ -20,7 +27,7 @@ describe('iata', () => {
 
     it('returns a list of airports with code and name', async () => {
       const airports = await iata.getAirports();
-      
+
       expect(airports).toEqual([sampleAirport]);
     });
   });

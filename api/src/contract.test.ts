@@ -1,5 +1,6 @@
 import * as path from 'path';
 import { Verifier, VerifierOptions } from '@pact-foundation/pact';
+import pact from '@pact-foundation/pact-node';
 import { createServer, Server } from 'http';
 import nock from 'nock';
 
@@ -8,6 +9,13 @@ import urls from './constants/urls';
 
 import app from './app';
 
+jest.mock('../resources/airports.json', () => ({
+  airports: [{
+    code: 'PTY',
+    name: 'Tocumen International Airport',
+  }]
+}));
+
 const port = 8001;
 const pacts = path.resolve(process.cwd(), '..', 'pacts', 'hc-ui-hc-api.json');
 
@@ -15,8 +23,8 @@ const options: VerifierOptions = {
   providerBaseUrl: `http://localhost:${port}`,
   provider: 'hc-api',
   pactUrls: [ pacts ],
-  logLevel: 'error',
 };
+pact.logLevel('error');
 
 describe('API', () => {
   let server: Server;
