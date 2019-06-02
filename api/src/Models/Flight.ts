@@ -12,9 +12,9 @@ export interface IFlight extends Document {
   ORIGIN: string,
   DESTINATION: string,
   TOTALNOSHOW: number,
-  TotalAuthorized: number,
-  TotalSeatSold: number,
-  TotalSeatAvailable: number,
+  TotalAuthorized: string,
+  TotalSeatSold: string,
+  TotalSeatAvailable: string,
   DateMonth: number,
   DateYear: number,
   AirportORIGIN: string,
@@ -23,8 +23,10 @@ export interface IFlight extends Document {
   CountryDESTINATION: string,
   FESTIVOenORIGEN: string,
   FESTIVOenDestino: string,
-  
-  departureDateTime: Date,
+
+  dayOfWeekNumber: number,
+  dayNumber: number,
+  hourNumber: number,
   originInHoliday: boolean,
   destinationInHoliday: boolean
 
@@ -39,9 +41,9 @@ const FlightSchema : Schema = new Schema({
   ORIGIN: String,
   DESTINATION: String,
   TOTALNOSHOW: Number,
-  TotalAuthorized: Number,
-  TotalSeatSold: Number,
-  TotalSeatAvailable: Number,
+  TotalAuthorized: String,
+  TotalSeatSold: String,
+  TotalSeatAvailable: String,
   DateMonth: Number,
   DateYear: Number,
   AirportORIGIN: String,
@@ -51,7 +53,9 @@ const FlightSchema : Schema = new Schema({
   FESTIVOenORIGEN: String,
   FESTIVOenDestino: String,
 
-  departureDateTime: Date,
+  dayOfWeekNumber: Number,
+  dayNumber: Number,
+  hourNumber: Number,
   originInHoliday: boolean,
   destinationInHoliday: boolean
 

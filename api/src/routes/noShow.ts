@@ -12,23 +12,95 @@ router.get('/', async (req, res, next) => {
 
   const usedDate = new Date(date);
 
+  const lowerDate = new Date(usedDate.getTime() - (3 * 3600 * 1000));
+  const upperDate = new Date(usedDate.getTime() + (3 * 3600 * 1000));
+
   const filterObject = {
     'ORIGIN': origin,
     'DESTINATION': destination
-    // 'departureDateTime': { $gt: lowerDate, $lt: upperDate }
   }
 
   const secondFilterObject = {
     'ORIGIN': origin,
     'DateMonth': usedDate.getMonth() + 1,
-    'DEPARTURE_DATE': new RegExp(`^\d{1,2}\/${usedDate.getDate()}\/\d{4}$`)
+    'dayNumber': usedDate.getDate()
   }
+
+  const thirdFilterObject = {
+    'ORIGIN': origin,
+    'hourNumber': { $gt: lowerDate.getHours(), $lt: upperDate.getHours() }
+  }
+
+  const fourthFilterObject = {
+    'ORIGIN': origin,
+    'DateMonth': usedDate.getMonth() + 1,
+    'dayOfWeekNumber': usedDate.getDay()
+  }
+
+  let firstData : FilterResponse;
+  let secondData : FilterResponse;
+  let thirdData : FilterResponse;
+  let fourthData : FilterResponse;
 
   applyAggregate(filterObject)
     .then(data => data as FilterResponse)
-    .then(data => res.json({ noData: Object.assign(data, {
-      trueValue: (data.mean + data.median) / 2
-    }) }))
+    .then(firstReturnData => {
+
+      firstData = Object.assign(firstReturnData, {
+        finalValue: (firstReturnData.median + firstReturnData.mean) / 2
+      });
+
+      applyAggregate(secondFilterObject)
+        .then(data => data as FilterResponse)
+        .then(secondReturnData => {
+
+          secondData = Object.assign(secondReturnData, {
+            finalValue: (secondReturnData.median + secondReturnData.mean) / 2
+          });
+
+          applyAggregate(thirdFilterObject)
+            .then(data => data as FilterResponse)
+            .then(thirdReturnData => {
+
+              thirdData = Object.assign(thirdReturnData, {
+                finalValue: (thirdReturnData.median + thirdReturnData.mean) / 2
+              });
+
+              applyAggregate(fourthFilterObject)
+                .then(data => data as FilterResponse)
+                .then(fourthReturnData => {
+
+                  fourthData = Object.assign(fourthReturnData, {
+                    finalValue: (fourthReturnData.median + fourthReturnData.mean) / 2
+                  });
+
+                  const noShow = Math.ceil((
+                    firstData.finalValue + secondData.finalValue + thirdData.finalValue + fourthData.finalValue
+                  ) / 4);
+
+                  const records = firstData.length + secondData.length + thirdData.length + fourthData.length;
+
+                  res.json({
+                    wontShow: noShow,
+                    confidence: 0,
+                    records: records,
+                    auxData: {
+                      originDestination: firstData,
+                      originMonthDate: secondData,
+                      originHour: thirdData,
+                      originWeekDay: fourthData
+                    },
+                  });
+
+                })
+
+              
+
+            })
+
+        })
+
+    })
     .catch(err => console.log(err))
 
 });
@@ -36,13 +108,20 @@ router.get('/', async (req, res, next) => {
 interface FilterObject {
   ORIGIN? : string,
   DESTINATION? : string,
-  departureDateTime? : number
+  hourNumber? : {
+    $gt: number,
+    $lt: number
+  },
+  DateMonth?: number,
+  DEPARTURE_DATE?: RegExp,
+  dayOfWeekNumber?: number
 }
 
 interface FilterResponse {
   mean: number,
   median: number,
-  length: number
+  length: number,
+  finalValue: number,
 }
 
 function applyAggregate(filterObject: FilterObject) {
@@ -79,16 +158,7 @@ function applyAggregate(filterObject: FilterObject) {
     .catch(err => {
       console.log(err);
     });
-  // return Flights.aggregate([
-  //   { "$match": filterObject },
-  //   { 
-  //     "$group": { 
-  //       _id: null, 
-  //       averageNoShow: { "$avg": "$TOTALNOSHOW" },
-  //       total: { "$sum": 1 }
-  //     }
-  //   }
-  // ])
+
 }
 
 export default router;
