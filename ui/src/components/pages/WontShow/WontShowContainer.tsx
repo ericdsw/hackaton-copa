@@ -24,13 +24,12 @@ const Container = () => {
       })
       .finally(() => setIsLoading(false));
     
-  }, [ airports ]);
+  }, [  ]);
 
   function submitData(args: { origin: string, destination: string, date: string, time: string }) {
     setIsLoading(true);
     getNoShow(args)
       .then(noShow => {
-        debugger;
         setNoShow(noShow);
       })
       .finally(() => setIsLoading(false));
