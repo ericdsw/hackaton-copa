@@ -17,14 +17,14 @@ const drawerWidth = 240;
 
 const styles = (theme: Theme) => createStyles({
   appBar: {
-    marginLeft: drawerWidth,
+    // marginLeft: drawerWidth,
     [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`
+      // width: `calc(100% - ${drawerWidth}px)`
     }
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth
+    // width: drawerWidth
   },
   menuButton: {
     marginRight: 20,
@@ -36,7 +36,7 @@ const styles = (theme: Theme) => createStyles({
     flexGrow: 1,
     padding: 16,
     [theme.breakpoints.up('sm')]: {
-      marginLeft: drawerWidth
+      // marginLeft: drawerWidth
     }
   }
 });
@@ -81,7 +81,7 @@ const ApplicationWrapper: React.FC<ApplicationBarProps> = props => {
             <Icon>menu</Icon>
           </IconButton>
           <Typography variant='h6' color='inherit'>
-            FooApplication
+            Copa - Overbooking Handler
           </Typography>
         </Toolbar>
       </AppBar>
