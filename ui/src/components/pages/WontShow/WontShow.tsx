@@ -194,7 +194,11 @@ const WontShow = ({
           </Typography>
 
           {noShow &&
-            <div>{noShow}</div>
+            <div>
+              <p><b>Won't show:</b> {noShow.wontShow}</p>
+              <p><b>Confidence:</b> {noShow.confidence}</p>
+              <p><b>Records:</b> {noShow.records}</p>
+            </div>
           }
 
           {!noShow &&

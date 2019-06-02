@@ -38,7 +38,6 @@ interface NoShowResponse {
 export const getNoShow = (params : {
   origin: string
   destination: string ,
-  date: string,
-  time: string
+  date: string
 }) => callApi<NoShowResponse>(`${urls.PATHS.NO_SHOW}?${stringify(params)}`, { ...defaultOpts })
   .then(({ noShow }) => noShow);

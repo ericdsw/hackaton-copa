@@ -23,15 +23,21 @@ const Container = () => {
         setAirports(sortedAirports);
       })
       .finally(() => setIsLoading(false));
-    
-  }, [ airports ]);
+  }, [ ]);
+
+  function submitData(args: { origin: string, destination: string, date: string, time: string }) {
+    setIsLoading(true);
+    getNoShow(args)
+      .then(noShow => setNoShow(noShow))
+      .finally(() => setIsLoading(false));
+  }
 
   return (
     <WontShow
       isLoading={isLoading}
       airports={airports}
       noShow={noShow}
-      handleSearchWontShow={() => console.log('foobar')}
+      handleSearchWontShow={submitData}
     />
   );
 };

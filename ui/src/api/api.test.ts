@@ -40,8 +40,7 @@ describe('api', () => {
       const noShow = await api.getNoShow({
         origin: 'PTY',
         destination: 'DAV',
-        date: '2019-06-01',
-        time: '13:30 pm'
+        date: '2019-06-01 11:30:00 PM'
       });
 
       expect(noShow).toEqual({
